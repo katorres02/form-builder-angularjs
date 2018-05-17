@@ -1,0 +1,19 @@
+.form-builder {
+  height: 100%;
+  background-color: #f3f3f3;
+}
+
+.form-builder .column {
+  margin-top: 10px;
+  border: 1px solid gray;
+  height: auto;
+}
+
+.fields {
+  margin-left: 25px;
+}
+
+.checkbox-left {
+  left: 0;
+  z-index: 2;
+}
