@@ -23,7 +23,7 @@
           <div ng-repeat="section in formjs.sections track by $index">
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-danger float-right">x</button>
+                <button ng-click="formjs.removeElement(null, $index)" class="btn btn-danger float-right">x</button>
               </div>
             </div>
             <div class="form-group">
@@ -47,11 +47,15 @@
                     </div>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-5">
                     <select class="form-control" ng-model="field.type"
                     ng-options="option.text for option in formjs.fieldTypes track by option.id"
                     ng-change="formjs.canAssignOptions(field)" >
                     </select>
+                  </div>
+
+                  <div class="col-md-1">
+                    <button ng-click="formjs.removeElement(section, $index)" class="btn btn-danger float-right">x</button>
                   </div>
                 </div>
                 <!-- /row -->

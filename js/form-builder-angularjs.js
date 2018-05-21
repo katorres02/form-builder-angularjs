@@ -78,4 +78,14 @@ module.controller('FormsController', function($scope, $filter) {
       }
     }
 
+    formBuilder.removeElement = function(parent, index){
+      var dialog = confirm("Está seguro?");
+      if (!dialog) { return; }
+
+      if(parent === null){
+        formBuilder.sections.splice(index, 1);
+      }else{
+        parent.fields.splice(index, 1);
+      }
+    }
   });
