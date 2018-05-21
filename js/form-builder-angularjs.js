@@ -1,5 +1,5 @@
-module = angular.module('formBuilderApp', []);
-module.controller('FormsController', function() {
+module = angular.module('formBuilderApp', ['ui.sortable']);
+module.controller('FormsController', function($scope, $filter) {
     
     var formBuilder = this;
     
@@ -9,7 +9,7 @@ module.controller('FormsController', function() {
       "description": "Descripción",
       "fields": [
         {
-          "name": "Campo",
+          "name": "Campo1",
           "type": {
             "id": 0,
             "text": "Texto corto"
@@ -17,9 +17,33 @@ module.controller('FormsController', function() {
           "order": 0,
           "showOptions": false,
           "options": []
+        },
+        {
+          "name": "Campo2",
+          "type": {
+            "id": 1,
+            "text": "Texto largo"
+          },
+          "order": 1,
+          "showOptions": false,
+          "options": []
         }
       ]
     }];
+
+    $scope.sortableOptions = {
+      containment: 'parent',
+      tolerance: 'pointer',
+      cursor: 'pointer',
+      opacity: '0.8',
+      stop: function( event, ui ) {
+        formBuilder.sections.map(function(i){
+          i.fields.map(function(field, index){
+            field.order = index;
+          });
+        })
+      }
+    };
     
     formBuilder.fieldTypes = [
       { id: 0, text: 'Texto corto' }, { id: 1, text: 'Texto largo' }, { id: 2, text: 'Fecha'},
@@ -32,8 +56,9 @@ module.controller('FormsController', function() {
     }
 
     formBuilder.addField = function(section){
-      var field = { name: 'Campo', type: formBuilder.fieldTypes[0], order: 0,
-        showOptions: false, options: []
+      let fields_length = section.fields.length;
+      var field = { name: 'Campo'+(fields_length+1), type: formBuilder.fieldTypes[0],
+        order: fields_length, showOptions: false, options: []
       };
       section.fields.push(field);
     }
@@ -52,4 +77,5 @@ module.controller('FormsController', function() {
         field.options = [];
       }
     }
+
   });

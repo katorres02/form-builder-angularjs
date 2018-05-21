@@ -1,8 +1,15 @@
 <!doctype html>
 <html ng-app="formBuilderApp">
   <head>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+
+    <script src="http://cdn.jsdelivr.net/g/angular.ui-sortable"></script>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
     <script src="js/form-builder-angularjs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -27,9 +34,9 @@
             </div>
             <hr>
             <!-- Campos de la sección-->
-            <div class="fields" id="fields-section-{{$index}}">
+            <div ui-sortable="sortableOptions" ng-model="section.fields" class="fields lefted" id="fields-section-{{$index}}">
               
-              <div ng-repeat="field in section.fields">
+              <div ng-repeat="field in section.fields track by $index" data-order="{{$index}}">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
@@ -49,8 +56,9 @@
                 </div>
                 <!-- /row -->
 
-                <div id="field-options" ng-show="field.showOptions" class="fields">
-                  <div class="row">
+                <!-- Opciones de campos -->
+                <div id="field-options" ng-show="field.showOptions" class="lefted">
+                  <div class="row option-fields">
                     <div ng-repeat="option in field.options" class="col-md-4">
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Opción</label>
@@ -66,13 +74,14 @@
                       <a href="" class="" ng-click="formjs.addOption(field)">Agregar opción</a>
                     </div>
                   </div>
-
                 </div>
+                <!-- /Opciones de campos -->
+
               </div>
             </div>
             <!-- /campos de sección -->
 
-            <button class="btn btn-default fields" ng-click="formjs.addField(section)">Agregar campo</button>
+            <button class="btn btn-default lefted" ng-click="formjs.addField(section)">Agregar campo</button>
             <hr>
           </div>
 
@@ -152,5 +161,6 @@
       </div>
     </div>
     <!--/container -->
+
   </body>
 </html>
